@@ -80,11 +80,6 @@ export default async function gendoc(org,item){
 export function generateParams(org,item){
 	const out = {}
 
-
-
-	//item.amountNds = (item.amount / 100*20).toFixed(2)
-	//item.amountWithoutNds = item.amount - item.amountNds
-
 	const created = item.created
 	const executed = item.executed
 	item.created = moment(created).format('DD.MM.YYYY')
