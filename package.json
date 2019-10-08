@@ -20,6 +20,7 @@
     "electron-root-path": "^1.0.9",
     "electron-store": "^5.0.0",
     "file-url": "^3.0.0",
+    "js-base64": "^2.5.1",
     "module-bank-api": "^1.2.2",
     "moment": "^2.24.0",
     "pizzip": "^3.0.6",

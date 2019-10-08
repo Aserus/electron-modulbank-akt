@@ -1,7 +1,15 @@
 import { ModuleBankApi/*, ModuleBankPaymentCategory*/ } from 'module-bank-api';
 import store from './store'
+//import moment from 'moment'
+//import request from 'request'
+//import { Base64 } from 'js-base64';
+
 
 let api
+
+// function checkConnect(){
+// 	return null
+// }
 
 
 export function setApi(token = 'sandboxtoken',sandbox = true){
@@ -9,6 +17,7 @@ export function setApi(token = 'sandboxtoken',sandbox = true){
 		token,
 		sandbox
 	);
+	//checkConnect(api,token)
 }
 
 

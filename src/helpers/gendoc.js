@@ -24,13 +24,26 @@ const appTplPath = path.join(__static,'tpl.docx')
 
 export const tplPath = path.join(os.homedir(),'md_electron_tpl.docx')
 
-if(!fs.existsSync(tplPath)){
-	fs.copyFileSync(appTplPath, tplPath);
+
+
+function copyTpl(){
+	fs.copyFileSync(appTplPath, tplPath)
 }
+
+if(!fs.existsSync(tplPath)){
+	copyTpl();
+}
+
 
 
 export const tplUrl = fileUrl(tplPath);
 
+export function clearTpl(){
+	if(fs.existsSync(tplPath)){
+		fs.unlinkSync(tplPath)
+	}
+	copyTpl()
+}
 export function openTpl(){
 	shell.openExternal(tplUrl)
 }
@@ -75,7 +88,19 @@ export default async function gendoc(org,item){
 }
 
 
-
+function getAktNumber(text){
+	const regList = [
+		new RegExp("№(\\d+)",'i'),
+		new RegExp("счету (\\d+) от",'i')
+	]
+	for(let reg of regList){
+		const d = reg.exec(text)
+		if(d && d[1]){
+			return d[1]
+		}
+	}
+	return ''
+}
 
 export function generateParams(org,item){
 	const out = {}
@@ -93,7 +118,7 @@ export function generateParams(org,item){
 
 	item.amountText = item.amountText.charAt(0).toUpperCase() + item.amountText.slice(1)
 
-
+	item.aktNumber = getAktNumber(item.paymentPurpose)
 
 	Object.keys(org).forEach(k => {
 		if(k=='bankAccounts') return;
@@ -105,10 +130,43 @@ export function generateParams(org,item){
 		out[key] = item[k]
 	})
 
+
+	out.nowDate = moment().format('DD.MM.YYYY')
+	out.nowDateText = moment().format('LL')
+
 	//console.log(Object.keys(out))
 	return out
 }
 
 
 
-export const tplKeys = ["o-companyId", "o-companyName", "o-registrationCompleted", "o-Inn", "o-Kpp", "o-Ogrn", "p-id", "p-companyId", "p-status", "p-category", "p-contragentName", "p-contragentInn", "p-contragentKpp", "p-contragentBankAccountNumber", "p-contragentBankName", "p-contragentBankBic", "p-currency", "p-amount", "p-bankAccountNumber", "p-paymentPurpose", "p-executed", "p-created", "p-docNumber", "p-createdText", "p-executedText", "p-amountText"]
+export const tplKeys = [
+	"o-companyId",
+	"o-companyName",
+	"o-registrationCompleted",
+	"o-Inn",
+	"o-Kpp",
+	"o-Ogrn",
+	"p-id",
+	"p-companyId",
+	"p-status",
+	"p-category",
+	"p-contragentName",
+	"p-contragentInn",
+	"p-contragentKpp",
+	"p-contragentBankAccountNumber",
+	"p-contragentBankName",
+	"p-contragentBankBic",
+	"p-currency",
+	"p-amount",
+	"p-bankAccountNumber",
+	"p-paymentPurpose",
+	"p-executed",
+	"p-created",
+	"p-docNumber",
+	"p-createdText",
+	"p-executedText",
+	"p-amountText",
+	"p-aktNumber",
+	"nowDate",
+	"nowDateText"]

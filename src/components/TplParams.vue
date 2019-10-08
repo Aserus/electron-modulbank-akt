@@ -6,12 +6,13 @@ div
 			tpl-params-item(v-for="(item,index) in formatterList" :item="item" :key="index").mr-2.mb-2
 
 		v-card-actions
-			v-btn(@click="clickTpl()" text).ml-auto Открыть шаблон
+			v-btn(@click="clickClear()" color="warning") Reset TPL
+			v-btn(@click="clickTpl()" color="primary").ml-auto Открыть шаблон
 	div
 </template>
 
 <script>
-import { openTpl, tplKeys } from '@helpers/gendoc'
+import { clearTpl,openTpl, tplKeys } from '@helpers/gendoc'
 import TplParamsItem from './TplParamsItem'
 
 
@@ -27,6 +28,9 @@ export default {
 	methods:{
 		clickTpl(){
 			openTpl()
+		},
+		clickClear(){
+			clearTpl()
 		}
 	},
 	components:{
