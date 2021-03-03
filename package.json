@@ -24,7 +24,7 @@
     "module-bank-api": "^1.2.2",
     "moment": "^2.24.0",
     "pizzip": "^3.0.6",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0",
     "rubles": "^0.2.0",
     "tempfile": "^3.0.0",
